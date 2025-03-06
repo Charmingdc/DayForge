@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CiCalendarDate } from "react-icons/ci";
-import { PiArrowBendRightDownBold } from "react-icons/pi";
+import { PiArrowBendRightDownBold, PiArrowBendRightUpBold } from "react-icons/pi";
 
 type TodoProps = {
   todoText: string;
@@ -60,7 +60,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
             <button> </button>
             <p>{currentTodo.todoText}</p>
             <button>
-              <PiArrowBendRightDownBold size={22} />
+               <PiArrowBendRightUpBold size={22} />
             </button>
           </li>
         ))}
