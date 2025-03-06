@@ -25,15 +25,19 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   }, [todos]);
 
   
-  const ChangeTodoTime = (todo: TodoProps) => {
+  const changeTodoTime = (todo: TodoProps) => {
     if (todo.todoTime === 'today') {
       todo.todoTime = 'someday';
     } else {
       todo.todoTime = 'today';
     }
 
-    setTodaysTodos(todo);
-    setSomedaysTodos(todo);
+    // Recalculate todos after changing the time
+    const updatedTodays = todos.filter((t) => t.todoTime === 'today');
+    const updatedSomedays = todos.filter((t) => t.todoTime === 'someday');
+    
+    setTodaysTodos(updatedTodays);
+    setSomedaysTodos(updatedSomedays);
     console.log('Current todo:', todo);
   }
 
@@ -51,7 +55,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
           <li key={i}>
             <button> </button>
             <p>{currentTodo.todoText}</p>
-            <button onClick={(currentTodo) => changeTodoTime(currentTodo)}>
+            <button onClick={() => changeTodoTime(currentTodo)}>
               <PiArrowBendRightDown size={22} />
             </button>
           </li>
@@ -72,7 +76,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
           <li key={i}>
             <button> </button>
             <p>{currentTodo.todoText}</p>
-            <button>
+            <button onClick={() => changeTodoTime(currentTodo)}>
                <PiArrowBendRightUp size={22} />
             </button>
           </li>
