@@ -1,5 +1,6 @@
 import { CiCalendarDate } from "react-icons/ci";
-
+import { PiArrowBendLeftDownBold, PiArrowBendRightUpBold } from "react-icons/pi";
+				
 type TodoProps = {
 	todoTime: string;
 };
@@ -14,9 +15,20 @@ const TodoList: React.FC<TodoProps> = ({ todoTime }) => {
 			</div>
 
 			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>
+				 <button> </button>
+					<p> 
+					 Buy X and rename it Twitter 
+				  </p>
+
+					{ todoTime === "today" ? <PiArrowBendLeftDownBold /> : <piArrowBendRightUpBold /> }
+				</li>
+				
+				<li>
+				</li>
+				
+				<li>
+				</li>
 			</ul>
 		</section>
 	);
