@@ -4,20 +4,20 @@ import { IoCheckmarkDoneOutline, IoAdd } from "react-icons/io5";
 
 const FooterNav: React.FC = () => {
 	return (
-	  <section>
-		  <button> 
-			  <BsTrash3 size={24} />
-	    </button>
+		<section>
+			<button>
+				<BsTrash3 size={24} />
+			</button>
 
-		  <button>
-		  	<IoAdd size={24} />
-	  	</button>
+			<button>
+				<IoAdd size={24} />
+			</button>
 
-		  <button>
-		 	  <IoCheckmarkDoneOutline size={24} />
-	 	  </button>
-	  </section>
-	)
-}
+			<button>
+				<IoCheckmarkDoneOutline size={24} />
+			</button>
+		</section>
+	);
+};
 
 export default FooterNav;
