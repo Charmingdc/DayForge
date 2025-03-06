@@ -106,6 +106,13 @@ main {
  border: .1rem solid transparent;
 }
 
+.todo-lists > ul > li > p {
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 2;
+ text-align: center;
+ text-overflow: ellipsis;
+}
 
 footer {
  position: absolute;
@@ -122,7 +129,7 @@ footer section {
 }
 
 footer section button {
- width: 3.5rem;
+ width: 3.8rem;
  height: 3.5rem;
  display: flex;
  align-items: center;
