@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CiCalendarDate } from "react-icons/ci";
-import { PiArrowBendRightDownBold, PiArrowBendRightUpBold } from "react-icons/pi";
+import { PiArrowBendRightDown, PiArrowBendRightUp } from "react-icons/pi";
 
 type TodoProps = {
   todoText: string;
@@ -24,6 +24,19 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     setSomedaysTodos(somedays);
   }, [todos]);
 
+  
+  const ChangeTodoTime = (todo: TodoProps) => {
+    if (todo.todoTime === 'today') {
+      todo.todoTime = 'someday';
+    } else {
+      todo.todoTime = 'today';
+    }
+
+    setTodaysTodos(todo);
+    setSomedaysTodos(todo);
+    console.log('Current todo:', todo);
+  }
+
   return (
   <>
     <section className="todo-lists">
@@ -38,8 +51,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
           <li key={i}>
             <button> </button>
             <p>{currentTodo.todoText}</p>
-            <button>
-              <PiArrowBendRightDownBold size={22} />
+            <button onClick={(currentTodo) => changeTodoTime(currentTodo)}>
+              <PiArrowBendRightDown size={22} />
             </button>
           </li>
         ))}
@@ -60,7 +73,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
             <button> </button>
             <p>{currentTodo.todoText}</p>
             <button>
-               <PiArrowBendRightUpBold size={22} />
+               <PiArrowBendRightUp size={22} />
             </button>
           </li>
         ))}
