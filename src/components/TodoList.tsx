@@ -54,10 +54,11 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
 
       <ul>
         {todaysTodos.map((currentTodo, i) => (
-    { const isSelected = selectedTodos.some((t) => t.todoText === todo.todoText); }
-    
-          <li key={i}>
-            <button onClick={() => handleTodoSelection(currentTodo)}>
+          <li key={i} className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}>
+            <button 
+              onClick={() => handleTodoSelection(currentTodo)}
+              className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+            >
             </button>
             
             <p>{currentTodo.todoText}</p>
@@ -81,7 +82,11 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
       <ul>
         {somedaysTodos.map((currentTodo, i) => (
           <li key={i}>
-            <button> </button>
+            <button 
+              onClick={() => handleTodoSelection(currentTodo)}
+              className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+            >
+            </button>
             <p>{currentTodo.todoText}</p>
             <button onClick={() => changeTodoTime(currentTodo)}>
                <PiArrowBendRightUp size={22} />
