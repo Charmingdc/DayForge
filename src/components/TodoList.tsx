@@ -1,34 +1,42 @@
+import { useState, useEffect } from 'react';
 import { CiCalendarDate } from "react-icons/ci";
-import { PiArrowBendLeftDownBold, PiArrowBendRightUpBold } from "react-icons/pi";
+import { PiArrowBendRightDownBold, PiArrowBendRightUpBold } from "react-icons/pi";
 				
 type TodoProps = {
+	todoText: string;
+	isCompleted: boolean;
 	todoTime: string;
 };
 
-const TodoList: React.FC<TodoProps> = ({ todoTime }) => {
+const TodoList: React.FC<TodoProps> = ( todos ) => {
+	const [todaysTodos, setTodaysTodos] = useState<TodoProps[]>([]);
+
+	useEffect(() => {
+		const todays = todos.filter((todo: TodoProps) => todo.todoTime === 'today');
+		setTodaysTodos(todays);
+	}, [todaysTodos]);
+	
 	return (
 		<section className="todo-lists">
 			<div className="todo-time-tag">
 				<CiCalendarDate size={22} />
-				<span> {todoTime} </span>
+				<span> { todos.todoTime } </span>
 				<span> 3 </span>
 			</div>
 
 			<ul>
-				<li>
-				 <button> </button>
-					<p> 
-					 Buy X and rename it Twitter 
-				  </p>
+				{todaysTodos.map((currentTodo, i) => (
+			   <li key={i}>
+				   <button> </button>
+					 <p> 
+						 { currentTodo.todoText }
+					 </p>
 
-					{ todoTime === "today" ? <PiArrowBendLeftDownBold /> : <PiArrowBendRightUpBold /> }
-				</li>
-				
-				<li>
-				</li>
-				
-				<li>
-				</li>
+					 <button>
+					  <PiArrowBendRightDownBold size={22} />
+				   </button>
+				 </li>
+				))}
 			</ul>
 		</section>
 	);

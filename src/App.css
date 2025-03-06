@@ -7,14 +7,14 @@
 
 :root {
  --text-color: rgb(30, 30, 30);
- --bg-color: rgb(225, 225, 225);
- --shade-color: rgb(210, 210, 210);
+ --bg-color: rgb(230, 230, 230);
+ --shade-color: rgb(215, 215, 215);
  --accent-color: rgb(255, 255, 255);
 }
 
 body {
  width: 100vw;
- height: 100vh;
+ height: 100vh
  display: flex;
  flex-direction: column;
  align-items: center;
@@ -71,28 +71,44 @@ main {
  display: flex;
  flex-direction: column;
  align-items: center;
-gap: .6rem;
+ gap: .5rem;
  padding: .8rem 4%;
  background-color: var(--accent-color);
- overflow-x: hidden;
- overflow-y: auto;
- border-radius: 1.6rem;
+ border-radius: 1.4rem;
  list-style: none;
 }
 
 .todo-lists > ul > li {
- width: 100%;
+ width: 90%;
  height: 3.8rem;
  display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: space-between;
+ align-items: center;
+ justify-content: space-between;
+ font-size: .9rem;
+ padding-inline: 5%;
  background-color: var(--bg-color);
  border-radius: 1.4rem;
 }
 
+.todo-lists > ul > li > button:first-of-type {
+ width: 1.4rem;
+ height: 1.4rem;
+ background: transparent;
+ border: .1rem solid var(--shade-color);
+ border-radius: 50%;
+ transition: .2s;
+}
+
+.todo-lists > ul > li > button:last-of-type {
+ width: 2rem;
+ height: 2rem;
+ background: transparent;
+ border: .1rem solid transparent;
+}
+
+
 footer {
- position: fixed;
+ position: absolute;
  bottom: 1rem;
  height: 10vh;
 }
