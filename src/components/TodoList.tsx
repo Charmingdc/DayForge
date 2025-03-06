@@ -21,7 +21,7 @@ const TodoList: React.FC<TodoProps> = ({ todoTime }) => {
 					 Buy X and rename it Twitter 
 				  </p>
 
-					{ todoTime === "today" ? <PiArrowBendLeftDownBold /> : <piArrowBendRightUpBold /> }
+					{ todoTime === "today" ? <PiArrowBendLeftDownBold /> : <PiArrowBendRightUpBold /> }
 				</li>
 				
 				<li>
