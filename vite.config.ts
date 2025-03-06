@@ -33,4 +33,10 @@ export default defineConfig({
       type: 'module',
     },
   })],
+
+  server: {
+    allowedHosts: [
+      '76318291-a872-4b70-8728-76dc54bcac1a-00-3tqahg2o5e9zo.riker.replit.dev',
+    ],
+  }
 })
