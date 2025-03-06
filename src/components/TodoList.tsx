@@ -15,6 +15,7 @@ interface TodoListProps {
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   const [todaysTodos, setTodaysTodos] = useState<TodoProps[]>([]);
   const [somedaysTodos, setSomedaysTodos] = useState<TodoProps[]>([]);
+  const [selectedTodos, setSelectedTodos] = useState<TodoProps[]>([]);
 
   useEffect(() => {
     const todays = todos.filter((todo) => todo.todoTime === 'today');
@@ -26,21 +27,22 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
 
   
   const changeTodoTime = (todo: TodoProps) => {
-    if (todo.todoTime === 'today') {
-      todo.todoTime = 'someday';
-    } else {
-      todo.todoTime = 'today';
-    }
-
-    // Recalculate todos after changing the time
-    const updatedTodays = todos.filter((t) => t.todoTime === 'today');
-    const updatedSomedays = todos.filter((t) => t.todoTime === 'someday');
-    
-    setTodaysTodos(updatedTodays);
-    setSomedaysTodos(updatedSomedays);
-    console.log('Current todo:', todo);
+    (todo.todoTime === 'today') ? todo.todoTime = 'someday' : todo.todoTime = 'today';
+ 
+    setTodaysTodos(todos.filter((t) => t.todoTime === 'today'));
+    setSomedaysTodos(todos.filter((t) => t.todoTime === 'someday'));
   }
 
+  const handleTodoSelection = (todo: TodoProps) => {
+    const selected = selectedTodos.find((t) => t.todoText === todo.todoText);
+
+    if (selected) {
+      setSelectedTodos(selectedTodos.filter((t) => t.todoText !== todo.todoText));
+    } else {
+      setSelectedTodos([...selectedTodos, todo]);
+    }
+  };
+  
   return (
   <>
     <section className="todo-lists">
@@ -52,9 +54,14 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
 
       <ul>
         {todaysTodos.map((currentTodo, i) => (
+    { const isSelected = selectedTodos.some((t) => t.todoText === todo.todoText); }
+    
           <li key={i}>
-            <button> </button>
+            <button onClick={() => handleTodoSelection(currentTodo)}>
+            </button>
+            
             <p>{currentTodo.todoText}</p>
+            
             <button onClick={() => changeTodoTime(currentTodo)}>
               <PiArrowBendRightDown size={22} />
             </button>
