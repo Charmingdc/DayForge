@@ -8,7 +8,7 @@ const TodoList: React.FC<TodoProps> = ({ todoTime }) => {
 	return (
 		<section className='todo-lists'> 
 		  <div className='todo-time-tag'>
-		 	 <CiCalendarDate />
+		 	 <CiCalendarDate size={22} />
 				<span> { todoTime } </span>
 				<span> 3 </span>
 		  </div>
@@ -16,6 +16,7 @@ const TodoList: React.FC<TodoProps> = ({ todoTime }) => {
 		  <ul>
 			  <li></li>
 			  <li></li>
+				<li></li>
 		  </ul>
 	  </section>
 	)
