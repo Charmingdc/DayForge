@@ -93,10 +93,14 @@ main {
 .todo-lists > ul > li > button:first-of-type {
  width: 1.4rem;
  height: 1.4rem;
- background: transparent;
+ background: green;
  border: .1rem solid var(--shade-color);
  border-radius: 50%;
  transition: .2s;
+}
+
+.selected {
+	background: blue;
 }
 
 .todo-lists > ul > li > button:last-of-type {

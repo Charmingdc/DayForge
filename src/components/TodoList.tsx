@@ -25,77 +25,79 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     setSomedaysTodos(somedays);
   }, [todos]);
 
-  
+  const  = (todo: TodoProps) =>
   const changeTodoTime = (todo: TodoProps) => {
     (todo.todoTime === 'today') ? todo.todoTime = 'someday' : todo.todoTime = 'today';
  
     setTodaysTodos(todos.filter((t) => t.todoTime === 'today'));
     setSomedaysTodos(todos.filter((t) => t.todoTime === 'someday'));
-  }
+  };
 
   const handleTodoSelection = (todo: TodoProps) => {
-    const selected = selectedTodos.find((t) => t.todoText === todo.todoText);
-
-    if (selected) {
-      setSelectedTodos(selectedTodos.filter((t) => t.todoText !== todo.todoText));
-    } else {
-      setSelectedTodos([...selectedTodos, todo]);
-    }
+    setSelectedTodos((prevSelected) => {
+      const isAlreadySelected = prevSelected.some((t) => t.todoText === todo.todoText);
+      return isAlreadySelected
+        ? prevSelected.filter((t) => t.todoText !== todo.todoText) // Remove if already selected
+        : [...prevSelected, todo]; // Add if not selected
+    });
   };
   
   return (
-  <>
-    <section className="todo-lists">
-      <div className="todo-time-tag">
-        <CiCalendarDate size={22} />
-        <span> today </span>
-        <span> {todaysTodos.length} </span>
-      </div>
+    <>
+      <section className="todo-lists">
+        <div className="todo-time-tag">
+          <CiCalendarDate size={22} />
+          <span> today </span>
+          <span> {todaysTodos.length} </span>
+        </div>
 
-      <ul>
-        {todaysTodos.map((currentTodo, i) => (
-          <li key={i} className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}>
-            <button 
-              onClick={() => handleTodoSelection(currentTodo)}
-              className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
-            >
-            </button>
-            
-            <p>{currentTodo.todoText}</p>
-            
-            <button onClick={() => changeTodoTime(currentTodo)}>
-              <PiArrowBendRightDown size={22} />
-            </button>
-          </li>
-        ))}
-      </ul>
-    </section>
+        <ul>
+          {todaysTodos.map((currentTodo, i) => (
+            <li key={i}>
+              <button 
+                onClick={() => handleTodoSelection(currentTodo)}
+                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+              >
+                😅
+              </button>
+              
+              <p>{currentTodo.todoText}</p>
+              
+              <button onClick={() => changeTodoTime(currentTodo)}>
+                <PiArrowBendRightDown size={22} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-    
-    <section className="todo-lists">
-      <div className="todo-time-tag">
-        <CiCalendarDate size={22} />
-        <span> someday </span>
-        <span> {somedaysTodos.length} </span>
-      </div>
+      
+      <section className="todo-lists">
+        <div className="todo-time-tag">
+          <CiCalendarDate size={22} />
+          <span> someday </span>
+          <span> {somedaysTodos.length} </span>
+        </div>
 
-      <ul>
-        {somedaysTodos.map((currentTodo, i) => (
-          <li key={i}>
-            <button 
-              onClick={() => handleTodoSelection(currentTodo)}
-              className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
-            >
-            </button>
-            <p>{currentTodo.todoText}</p>
-            <button onClick={() => changeTodoTime(currentTodo)}>
-               <PiArrowBendRightUp size={22} />
-            </button>
-          </li>
-        ))}
-      </ul>
-    </section>
-   </>
+        <ul>
+          {somedaysTodos.map((currentTodo, i) => (
+            <li key={i}>
+              <button 
+                onClick={() => handleTodoSelection(currentTodo)}
+                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+              >
+              </button>
+              
+              <p>{currentTodo.todoText}</p>
+              
+              <button onClick={() => changeTodoTime(currentTodo)}>
+                 <PiArrowBendRightUp size={22} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 };
 
