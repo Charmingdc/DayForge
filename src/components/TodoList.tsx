@@ -25,7 +25,6 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     setSomedaysTodos(somedays);
   }, [todos]);
 
-  const  = (todo: TodoProps) =>
   const changeTodoTime = (todo: TodoProps) => {
     (todo.todoTime === 'today') ? todo.todoTime = 'someday' : todo.todoTime = 'today';
  
@@ -56,9 +55,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
             <li key={i}>
               <button 
                 onClick={() => handleTodoSelection(currentTodo)}
-                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? 'active' : 'select-btn'}
               >
-                😅
               </button>
               
               <p>{currentTodo.todoText}</p>
@@ -84,7 +82,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
             <li key={i}>
               <button 
                 onClick={() => handleTodoSelection(currentTodo)}
-                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? "selected" : ""}
+                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? 'active' : 'select-btn'}
               >
               </button>
               

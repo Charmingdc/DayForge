@@ -14,7 +14,7 @@
 
 body {
  width: 100vw;
- height: 100vh
+ height: 100vh;
  display: flex;
  flex-direction: column;
  align-items: center;
@@ -33,6 +33,7 @@ main, footer, nav {
 
 main {
  height: 90vh;
+ overflow: hidden;
 }
 
 .todo-lists {
@@ -66,12 +67,12 @@ main {
 }
 
 .todo-lists > ul {
- width: 92%;
+ width: 100%;
  height: 100%;
  display: flex;
  flex-direction: column;
  align-items: center;
- gap: .5rem;
+ gap: .5rem 0;
  padding: .8rem 4%;
  background-color: var(--accent-color);
  border-radius: 1.4rem;
@@ -90,17 +91,22 @@ main {
  border-radius: 1.4rem;
 }
 
-.todo-lists > ul > li > button:first-of-type {
+.select-btn {
  width: 1.4rem;
  height: 1.4rem;
- background: green;
+ background: transparent;
  border: .1rem solid var(--shade-color);
  border-radius: 50%;
  transition: .2s;
 }
 
-.selected {
-	background: blue;
+.active {
+ width: 1.4rem;
+ height: 1.4rem;
+ background: blue;
+ border: 0.1rem solid var(--shade-color);
+ border-radius: 50%;
+ transition: .2s;
 }
 
 .todo-lists > ul > li > button:last-of-type {
@@ -111,6 +117,7 @@ main {
 }
 
 .todo-lists > ul > li > p {
+ max-width: 80%;
  display: -webkit-box;
  -webkit-box-orient: vertical;
  -webkit-line-clamp: 2;
@@ -121,6 +128,7 @@ main {
 footer {
  position: absolute;
  bottom: 1rem;
+ left: 0rem;
  height: 10vh;
 }
  
