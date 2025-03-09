@@ -3,6 +3,7 @@ import { CiCalendarDate } from "react-icons/ci";
 import { PiArrowBendRightDown, PiArrowBendRightUp } from "react-icons/pi";
 
 type TodoProps = {
+  id: string;
   todoText: string;
   isCompleted: boolean;
   todoTime: string;
@@ -10,12 +11,14 @@ type TodoProps = {
 
 interface TodoListProps {
   todos: TodoProps[];
+  selectedTodos: string[];
+  setSelectedTodos: (selected: string[]) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTodos }) => {
   const [todaysTodos, setTodaysTodos] = useState<TodoProps[]>([]);
   const [somedaysTodos, setSomedaysTodos] = useState<TodoProps[]>([]);
-  const [selectedTodos, setSelectedTodos] = useState<TodoProps[]>([]);
+  
 
   useEffect(() => {
     const todays = todos.filter((todo) => todo.todoTime === 'today');
@@ -24,7 +27,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     setTodaysTodos(todays);
     setSomedaysTodos(somedays);
   }, [todos]);
-
+  
   const changeTodoTime = (todo: TodoProps) => {
     (todo.todoTime === 'today') ? todo.todoTime = 'someday' : todo.todoTime = 'today';
  
@@ -32,13 +35,10 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
     setSomedaysTodos(todos.filter((t) => t.todoTime === 'someday'));
   };
 
-  const handleTodoSelection = (todo: TodoProps) => {
-    setSelectedTodos((prevSelected) => {
-      const isAlreadySelected = prevSelected.some((t) => t.todoText === todo.todoText);
-      return isAlreadySelected
-        ? prevSelected.filter((t) => t.todoText !== todo.todoText) // Remove if already selected
-        : [...prevSelected, todo]; // Add if not selected
-    });
+  const handleTodoSelection = (todoId: string) => {
+    const isAlreadySelected = selectedTodos.some((id) => id === todoId);
+    const prevSelected = isAlreadySelected ? selectedTodos.filter((id: string) => id !== todoId) : [...selectedTodos, todoId];
+    setSelectedTodos(prevSelected);
   };
   
   return (
@@ -52,14 +52,16 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
 
         <ul>
           {todaysTodos.map((currentTodo, i) => (
-            <li key={i}>
+           <li key={i}>
               <button 
-                onClick={() => handleTodoSelection(currentTodo)}
-                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? 'active' : 'select-btn'}
+                onClick={() => handleTodoSelection(currentTodo.id)}
+                className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}
               >
               </button>
               
-              <p>{currentTodo.todoText}</p>
+              <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
+                {currentTodo.todoText}
+              </p>
               
               <button onClick={() => changeTodoTime(currentTodo)}>
                 <PiArrowBendRightDown size={22} />
@@ -81,12 +83,14 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
           {somedaysTodos.map((currentTodo, i) => (
             <li key={i}>
               <button 
-                onClick={() => handleTodoSelection(currentTodo)}
-                className={selectedTodos.some(t => t.todoText === currentTodo.todoText) ? 'active' : 'select-btn'}
+                onClick={() => handleTodoSelection(currentTodo.id)}
+                className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}
               >
               </button>
               
-              <p>{currentTodo.todoText}</p>
+              <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
+                {currentTodo.todoText}
+              </p>
               
               <button onClick={() => changeTodoTime(currentTodo)}>
                  <PiArrowBendRightUp size={22} />
