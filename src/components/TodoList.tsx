@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
+import { TodoProps } from "../types";
 import { CiCalendarDate } from "react-icons/ci";
 import { PiArrowBendRightDown, PiArrowBendRightUp } from "react-icons/pi";
 
-type TodoProps = {
-  id: string;
-  todoText: string;
-  isCompleted: boolean;
-  todoTime: string;
-};
-
 interface TodoListProps {
   todos: TodoProps[];
-  selectedTodos: string[];
-  setSelectedTodos: (selected: string[]) => void;
+  selectedTodos: number[];
+  setSelectedTodos: (selected: number[]) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTodos }) => {
@@ -28,6 +22,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
     setSomedaysTodos(somedays);
   }, [todos]);
   
+
+
   const changeTodoTime = (todo: TodoProps) => {
     (todo.todoTime === 'today') ? todo.todoTime = 'someday' : todo.todoTime = 'today';
  
@@ -35,9 +31,10 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
     setSomedaysTodos(todos.filter((t) => t.todoTime === 'someday'));
   };
 
-  const handleTodoSelection = (todoId: string) => {
-    const isAlreadySelected = selectedTodos.some((id) => id === todoId);
-    const prevSelected = isAlreadySelected ? selectedTodos.filter((id: string) => id !== todoId) : [...selectedTodos, todoId];
+
+  const handleTodoSelection = (todoId: number) => {
+    const isAlreadySelected = selectedTodos.some(id => id === todoId);
+    const prevSelected = isAlreadySelected ? selectedTodos.filter((id: number) => id !== todoId) : [...selectedTodos, todoId];
     setSelectedTodos(prevSelected);
   };
   
