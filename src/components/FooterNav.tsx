@@ -60,14 +60,13 @@ const FooterNav: React.FC<FooterProps> = ({ setTodos, selectedTodos, setSelected
 	return;
    }
 
-
    setTodos((prevTodos: TodoProps[]) => 
 	 prevTodos.map(todo => 
 	   selectedTodos.includes(todo.id) ? { ...todo, isCompleted: !todo.isCompleted } : todo
 	 )
    );
 
-   toast.success('Selected todos marked as completed 🎉');
+   toast.success('Selected todos completion state changed  🎉');
    setSelectedTodos([]);
  };
  

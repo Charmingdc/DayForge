@@ -23,6 +23,11 @@ body {
  background-color: var(--bg-color);
 }
 
+svg {
+ fill: var(--text-color);
+ stroke: var(--text-color);
+}
+
 main, footer, nav {
  width: 90vw;
  display: flex;
@@ -282,4 +287,15 @@ footer section button {
 
 footer section button:nth-of-type(2) {
  background-color: var(--accent-color);
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+ :root {
+  --text-color: rgb(235, 235, 235);
+  --bg-color: rgb(25, 25, 25);
+  --shade-color: rgb(35, 35, 35);
+  --accent-color: rgb(10, 10, 10);
+ }
 }

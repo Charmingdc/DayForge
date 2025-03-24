@@ -51,23 +51,27 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
         </div>
 
         <ul>
-          {todaysTodos.map((currentTodo, i) => (
-           <li key={i}>
-              <button 
-                onClick={() => handleTodoSelection(currentTodo.id)}
-                className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}
-              >
-              </button>
+          { todaysTodos.length > 0 ? (
+            todaysTodos.map((currentTodo, i) => (
+             <li key={i}>
+               <button 
+                 onClick={() => handleTodoSelection(currentTodo.id)}
+                 className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}>
+               </button>
               
-              <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
-                {currentTodo.todoText}
-              </p>
+               <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
+                 {currentTodo.todoText}
+               </p>
               
-              <button onClick={() => changeTodoTime(currentTodo)}>
-                <PiArrowBendRightDown size={22} />
-              </button>
+               <button onClick={() => changeTodoTime(currentTodo)}>
+                 <PiArrowBendRightDown size={22} />
+               </button>
+             </li>
+           ))) : (
+            <li>
+             <p> No todos added for today 🥺 </p>  
             </li>
-          ))}
+          )}
         </ul>
       </section>
 
@@ -80,23 +84,27 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
         </div>
 
         <ul>
-          {somedaysTodos.map((currentTodo, i) => (
-            <li key={i}>
-              <button 
-                onClick={() => handleTodoSelection(currentTodo.id)}
-                className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}
-              >
-              </button>
+          {somedaysTodos.length > 0 ?
+            (somedaysTodos.map((currentTodo, i) => (
+              <li key={i}>
+                <button 
+                  onClick={() => handleTodoSelection(currentTodo.id)}
+                  className={selectedTodos.some(id => id === currentTodo.id) ? 'active' : 'select-btn'}>
+                </button>
               
-              <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
-                {currentTodo.todoText}
-              </p>
+                <p style={{textDecoration: currentTodo.isCompleted ? 'line-through' : 'none'}}>
+                  {currentTodo.todoText}
+                </p>
               
-              <button onClick={() => changeTodoTime(currentTodo)}>
-                 <PiArrowBendRightUp size={22} />
-              </button>
-            </li>
-          ))}
+                <button onClick={() => changeTodoTime(currentTodo)}>
+                   <PiArrowBendRightUp size={22} />
+                </button>
+              </li>
+            ))) : (
+              <li>
+                <p> No todos added for 'somedays' 😅 </p>
+              </li>
+          )}
         </ul>
       </section>
     </>
