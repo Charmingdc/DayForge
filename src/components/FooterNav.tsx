@@ -3,16 +3,17 @@ import { IoCheckmarkDoneOutline, IoAdd } from "react-icons/io5";
 import { TodoProps } from "../types";
 
 type FooterProps = {
- todos: TodoProps[];
+ setTodos: (todos: TodoProps[] | ((prevTodos: TodoProps[]) => TodoProps[])) => void;
  selectedTodos: number[];
  setSelectedTodos: (todos: number[]) => void;
  addTodo: (todo: TodoProps) => void;
- deleteTodo: (id: number) => void;
+ deleteTodo: (id: number[]) => void;
 }
 
-const FooterNav: React.FC<FooterProps> = ({ todos, selectedTodos, setSelectedTodos, addTodo, deleteTodo }) => {
+const FooterNav: React.FC<FooterProps> = ({ setTodos, selectedTodos, setSelectedTodos, addTodo, deleteTodo }) => {
+
  const handleTodoDeletion = (): void => {
-  selectedTodos.forEach(id => deleteTodo(id));
+  deleteTodo(selectedTodos);
   setSelectedTodos([]);
  }
 
@@ -23,15 +24,19 @@ const FooterNav: React.FC<FooterProps> = ({ todos, selectedTodos, setSelectedTod
 	todoTime: 'today',
 	isCompleted: false
   });
+  alert('Added');
  }
 
- const handleTodoCompletion = (): void => {
-  for (let x = 0; x < selectedTodos.length; x++) {
-	todos.forEach(todo => {
-	  if (todo.id === selectedTodos[x]) todo.isCompleted = true;
-	});
-  }
- }
+
+ const markSelectedAsCompleted = () => {
+   setTodos((prevTodos: TodoProps[]) => 
+	 prevTodos.map(todo => 
+	   selectedTodos.includes(todo.id) ? { ...todo, isCompleted: !todo.isCompleted } : todo
+	 )
+   );
+   setSelectedTodos([]);
+ };
+ 
 
  return (
   <section>
@@ -43,7 +48,7 @@ const FooterNav: React.FC<FooterProps> = ({ todos, selectedTodos, setSelectedTod
 	  <IoAdd size={24} />
 	</button>
 
-    <button onClick={handleTodoCompletion}>
+    <button onClick={markSelectedAsCompleted}>
 	  <IoCheckmarkDoneOutline size={24} />
 	</button>
   </section>

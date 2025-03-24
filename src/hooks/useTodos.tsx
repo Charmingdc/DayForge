@@ -11,7 +11,7 @@ const useTodos = () => {
     if (savedTodos) {
       setTodos(JSON.parse(savedTodos));
     }
-  }, [todos]);
+  }, []);
 
   
 
@@ -22,15 +22,14 @@ const useTodos = () => {
   }
 
 
-  const deleteTodo = (index: number) => {
-    const newTodos = todos.filter((_, i) => i != index);
-    setTodos(newTodos);
-
+  const deleteTodo = (ids: number[]) => {
+    setTodos(prevTodos => prevTodos.filter(todo => !ids.includes(todo.id)));
+    
     localStorage.setItem("dayForge_Todos", JSON.stringify(todos));
   }
 
   
-  return { todos, addTodo, deleteTodo };
+  return { todos, setTodos, addTodo, deleteTodo };
 }
 
 export default useTodos;

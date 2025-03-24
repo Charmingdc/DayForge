@@ -8,7 +8,7 @@ import './App.css'
 
 
 const App = () => {
-  const { todos, addTodo, deleteTodo } = useTodos();
+  const { todos, setTodos, addTodo, deleteTodo } = useTodos();
   const [selectedTodos, setSelectedTodos] = useState<number[]>([]);
 
   
@@ -23,7 +23,7 @@ const App = () => {
 
      <footer>
       <FooterNav 
-        todos={todos}
+        setTodos={setTodos}
         selectedTodos={selectedTodos}
         setSelectedTodos={setSelectedTodos}
         addTodo={addTodo}
