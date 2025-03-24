@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { toast } from "sonner";
+
 import { TodoProps } from "../types";
 import { CiCalendarDate } from "react-icons/ci";
 import { PiArrowBendRightDown, PiArrowBendRightUp } from "react-icons/pi";
@@ -29,6 +31,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
  
     setTodaysTodos(todos.filter((t) => t.todoTime === 'today'));
     setSomedaysTodos(todos.filter((t) => t.todoTime === 'someday'));
+    toast('Todo time changed 🌚');
   };
 
 

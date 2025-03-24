@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from "sonner";
+
 import { BsTrash3 } from "react-icons/bs";
 import { IoCheckmarkDoneOutline, IoAdd } from "react-icons/io5";
 import { SlArrowDownCircle } from "react-icons/sl";
@@ -14,21 +16,28 @@ type FooterProps = {
 
 const FooterNav: React.FC<FooterProps> = ({ setTodos, selectedTodos, setSelectedTodos, addTodo, deleteTodo }) => {
  const [showTodoForm, setShowTodoForm] = useState<boolean>(false);
+ const [showTimeOptions, setShowTimeOptions] = useState<boolean>(false);
  const [todoTextVal, setTodoTextVal] = useState<string>('');
  const [todoTimeVal, setTodoTimeVal] = useState<'today' | 'someday'>('today');
 
 
  const handleTodoDeletion = (): void => {
+  if (selectedTodos.length === 0) {
+   toast.error('No todo selected 🤓');
+   return;
+  }
+
   deleteTodo(selectedTodos);
+
+  toast.success('Selected todos deleted 👻');
   setSelectedTodos([]);
  }
 
  const handleAddNewTodo = (e: React.FormEvent) => {
-  setShowTodoForm(false);
-
+  e.preventDefault();
   if (!todoTextVal.trim()) {
-    alert('Empty text');
-	return
+   toast.error('Todo text cannot be empty');
+   return
   }
 
   addTodo({
@@ -37,14 +46,28 @@ const FooterNav: React.FC<FooterProps> = ({ setTodos, selectedTodos, setSelected
 	todoTime: todoTimeVal,
 	isCompleted: false
   });
+
+  toast.success('Todo addded ✅');
+  setTodoTextVal('');
+  setTodoTimeVal('today');
+  setShowTimeOptions(false);
+  setShowTodoForm(false);
  }
 
  const markSelectedAsCompleted = () => {
+   if (selectedTodos.length === 0) {
+    toast.error('No todo selected 🤓');
+	return;
+   }
+
+
    setTodos((prevTodos: TodoProps[]) => 
 	 prevTodos.map(todo => 
 	   selectedTodos.includes(todo.id) ? { ...todo, isCompleted: !todo.isCompleted } : todo
 	 )
    );
+
+   toast.success('Selected todos marked as completed 🎉');
    setSelectedTodos([]);
  };
  
@@ -65,30 +88,32 @@ const FooterNav: React.FC<FooterProps> = ({ setTodos, selectedTodos, setSelected
 
 
 	{ showTodoForm && 
-	 <form className="todo-form" onSubmit={handleAddNewTodo}>
-	  <button type="button" onClick={() => setShowTodoForm(false)}>
-	   <SlArrowDownCircle />
-	  </button>
+	 <div className="overlay">
+	  <form className="todo-form" onSubmit={handleAddNewTodo}>
+	   <button type="button" className="hide-form-btn" onClick={() => setShowTodoForm(false)}>
+	    <SlArrowDownCircle size={35} />
+	   </button>
 
-	  <input
-	    type='text'
-		placeholder='What are we adding?'
-		value={todoTextVal}
-		onChange={(e) => setTodoTextVal(e.target.value)} />
+	   <input
+	     type='text'
+		 placeholder='What are we adding?'
+		 value={todoTextVal}
+	  	 onChange={(e) => setTodoTextVal(e.target.value)} />
 	  
-	  <button type="button">
-	   { todoTimeVal }
-	  </button>
+	   <button type="button" className="time-selector" onClick={() => setShowTimeOptions(!showTimeOptions)}>
+	    Select time: { todoTimeVal }
+	   </button>
 
-	  <ul>
-	   <li onClick={() => setTodoTimeVal('today')}> today </li>
-	   <li onClick={() => setTodoTimeVal('someday')}> someday </li>
-	  </ul>
+	   <ul className={showTimeOptions ? 'timeval-options active-timeval-options' : 'timeval-options'}>
+	    <li onClick={() => setTodoTimeVal('today')}> today </li>
+	    <li onClick={() => setTodoTimeVal('someday')}> someday </li>
+	   </ul>
 
-	  <button type="submit">
-		Add Todo
-	  </button>
-	 </form>}
+	   <button type="submit" className="submit-form-btn">
+		 Add Todo
+	   </button>
+	  </form>
+	</div>}
   </section>
  );
 };

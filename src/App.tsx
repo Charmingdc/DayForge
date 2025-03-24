@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Toaster } from 'sonner';
 import useTodos from './hooks/useTodos.tsx';
 import TodoList from './components/TodoList.tsx';
 import FooterNav from './components/FooterNav.tsx';
@@ -31,6 +31,14 @@ const App = () => {
      </footer>
       
      <PWABadge />
+     <Toaster 
+      richColors={true}
+      closeButton={true}
+      toastOptions={{
+        style: {
+          borderRadius: '2rem',
+        },
+      }} />
     </>
   )
 }

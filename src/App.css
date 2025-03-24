@@ -143,6 +143,117 @@ main {
  text-overflow: ellipsis;
 }
 
+.overlay {
+ width: 100vw;
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ left: 50%;
+ display: flex;
+ align-items: flex-end;
+ justify-content: center;
+ background-color: rgba(255, 255, 255, .05);
+ backdrop-filter: blur(2px);
+ -webkit-backdrop-filter: blur(2px);
+ transform: translateX(-50%);
+ z-index: 5;
+}
+
+.todo-form {
+ width: 88vw;
+ height: auto;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ padding: 1rem 6vw;
+ padding-bottom: 4rem;
+ background: var(--accent-color);
+ border-top: .1rem solid var(--bg-color);
+ border-top-left-radius: 1.2rem;
+ border-top-right-radius: 1.2rem;
+ z-index: 10;
+}
+
+.hide-form-btn {
+ align-self: flex-start;
+ width: auto;
+ height: auto;
+ background: transparent;
+}
+
+.todo-form > input {
+ width: 92%;
+ height: 3.4rem;
+ padding-inline: 4%;
+ background: transparent;
+ border: .1rem solid var(--bg-color);
+ border-radius: .8rem;
+ margin-top: 1.5rem;
+}
+
+.todo-form .time-selector {
+ width: 100%;
+ height: 3.4rem;
+ display: flex;
+ align-items: center;
+ justify-content: flex-start;
+ padding-left: 4%;
+ background-color: var(--shade-color);
+ border: .1rem solid var(--shade-color);
+ border-radius: .8rem;
+ margin-block: 1rem;
+}
+
+.timeval-options {
+ width: 100%;
+ height: 0rem;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ list-style: none;
+ overflow: hidden;
+ border: none;
+ border-radius: .8rem;
+ margin-top: -.8rem;
+ transform: scale(0.9);
+ transition: .4s;
+}
+
+.active-timeval-options {
+ height: 6rem;
+ border: .060rem solid var(--shade-color);
+ transform: scale(1);
+ transition: .4s;
+}
+
+.timeval-options li {
+ width: 96%;
+ height: 3rem;
+ display: flex;
+ align-items: center;
+ padding-left: 4%;
+ background: transparent;
+ border-radius: .8rem;
+ transition: .4s;
+}
+.timeval-options li:hover {
+ background-color: var(--shade-color);
+}
+.timeval-options li:first-of-type {
+ border: .060rem solid var(--shade-color);
+}
+
+.submit-form-btn {
+ width: 100%;
+ height: 3.4rem;
+ color: var(--accent-color);
+ background-color: rgb(10, 10, 250);
+ border: none;
+ border-radius: 1.8rem;
+ margin-block: .8rem;
+}
+
+
 footer {
  position: absolute;
  bottom: 0;
