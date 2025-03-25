@@ -102,7 +102,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, selectedTodos, setSelectedTo
               </li>
             ))) : (
               <li>
-                <p> No todos added for 'somedays' 😅 </p>
+                <p> No todos added for 'somedays' </p>
               </li>
           )}
         </ul>
